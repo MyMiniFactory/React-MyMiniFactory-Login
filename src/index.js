@@ -7,11 +7,10 @@ const onFailure = response => console.error(onFailure);
 
 ReactDOM.render(
     <MyMiniFactoryLogin
-        clientId=""
-        redirectUri=""
+        clientId="character-creator"
+        redirectUri="https://myminifactory.com/character-creator"
         onSuccess={onSuccess}
         onFailure={onFailure}
-        buttonText="Connect her"
     />,
     document.getElementById('example')
 );
