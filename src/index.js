@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import MyMiniFactoryLogin from './MyMiniFactoryLogin';
 
 const onSuccess = response => console.log(response);
-const onFailure = response => console.error(onFailure);
+const onFailure = response => console.error(response);
 
 ReactDOM.render(
     <MyMiniFactoryLogin

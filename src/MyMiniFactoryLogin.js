@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import Popup from './Popup';
 import { toQuery } from './utils';
 
 
@@ -17,13 +18,42 @@ class MyMiniFactoryLogin extends Component {
     this.onClick = this.onClick;
   }
 
+  onRequest = () => {
+    this.props.onRequest();
+  }
+
+  onSuccess = (data) => {
+    if (!data.code) {
+      return this.onFailure(new Error('\'code\' not found'));
+    }
+    this.props.onSuccess(data);
+  }
+
+  onFailure = (error) => {
+    this.props.onFailure(error);
+  }
+
   onClick = () => {
-    const { clientId, scope, redirectUri } = this.props;
+    const { clientId, redirectUri } = this.props;
+    const authServer = "https://auth.myminifactory.com/web/authorize?"
     const search = toQuery({
       client_id: clientId,
-      scope,
       redirect_uri: redirectUri,
+      response_type: "code",
     });
+
+    console.log(authServer+search)
+
+    const popup = this.popup = Popup.open(
+      authServer+search,
+      { height: 600, width: 600 }
+    );
+
+    this.onRequest();
+    popup.then(
+      data => this.onSuccess(data),
+      error => this.onFailure(error)
+    );
   }
 
   render() {
