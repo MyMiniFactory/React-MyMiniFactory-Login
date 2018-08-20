@@ -1,20 +1,20 @@
 import { toParams } from './utils';
 
 class Popup {
-    constructor(url, options = {}) {
+    constructor(url, height, width, title = {}) {
         this.url = url;
-        this.options = options;
+        this.height = height;
+        this.width = width;
+        this.title = title;
     }
 
     open() {
         const { url, height, width, title } = this;
-        
-        let left = (window.screen.width/2)-(width/2);
-        let top = (window.screen.height/2)-(height/2);
 
-        console.log(height, width)
+        var y = window.top.outerHeight / 2 + window.top.screenY - ( height / 2)
+        var x = window.top.outerWidth / 2 + window.top.screenX - ( width / 2)
 
-        this.window = window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+width+', height='+height+', top='+top+', left='+left);
+        this.window = window.open(url, title, "width="+width+", height="+height+", top="+y+", left="+x);
     }
 
     close() {

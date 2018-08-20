@@ -47,8 +47,8 @@ class MyMiniFactoryLogin extends Component {
 
     const popup = this.popup = Popup.open(
       authServer+search,
-      300, //height
-      300, //width
+      620, //height
+      500, //width
       "MyMiniFactory Login"
     );
 
