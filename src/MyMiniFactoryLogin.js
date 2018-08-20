@@ -39,14 +39,17 @@ class MyMiniFactoryLogin extends Component {
     const search = toQuery({
       client_id: clientId,
       redirect_uri: redirectUri,
-      response_type: "code",
+      response_type: "token",
+      state: "abcthisisatest"
     });
 
     console.log(authServer+search)
 
     const popup = this.popup = Popup.open(
       authServer+search,
-      { height: 600, width: 600 }
+      300, //height
+      300, //width
+      "MyMiniFactory Login"
     );
 
     this.onRequest();

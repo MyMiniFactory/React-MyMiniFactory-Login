@@ -8,7 +8,7 @@ const onFailure = response => console.error(response);
 ReactDOM.render(
     <MyMiniFactoryLogin
         clientId="character-creator"
-        redirectUri="https://myminifactory.com/character-creator"
+        redirectUri="https://www.myminifactory.com/character-creator/"
         onSuccess={onSuccess}
         onFailure={onFailure}
     />,

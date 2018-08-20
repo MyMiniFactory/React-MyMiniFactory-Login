@@ -7,11 +7,14 @@ class Popup {
     }
 
     open() {
-        const { url, options } = this;
+        const { url, height, width, title } = this;
+        
+        let left = (window.screen.width/2)-(width/2);
+        let top = (window.screen.height/2)-(height/2);
 
-        console.log(options)
+        console.log(height, width)
 
-        this.window = window.open(url, "", "width=600,height=600");
+        this.window = window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+width+', height='+height+', top='+top+', left='+left);
     }
 
     close() {
