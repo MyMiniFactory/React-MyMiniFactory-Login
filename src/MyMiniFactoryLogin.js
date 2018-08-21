@@ -91,9 +91,9 @@ class MyMiniFactoryLogin extends Component {
   }
 
   render() {
-    const { className, id, buttonText, children } = this.props;
+    const { className, buttonText, children } = this.props;
 
-    return (<button className={className} id={id} onClick={this.onClick}>{children || buttonText}</button>);
+    return (<button className={className} onClick={this.onClick}>{children || buttonText}</button>);
   }
 }
 export default MyMiniFactoryLogin;
