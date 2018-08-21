@@ -1,5 +1,11 @@
+/**
+ * MyMiniFactoryLogin
+ * @author williamclot / https://github.com/williamclot
+**/
+
 import React, { Component } from 'react';
 
+// Useful functions to manipulate queries in URL
 import { toQuery, toParams, randomString } from './utils';
 
 
@@ -7,9 +13,10 @@ class MyMiniFactoryLogin extends Component {
 
   static defaultProps = {
     buttonText: 'Sign in to MyMiniFactory',
-    onRequest: () => { },
     onSuccess: () => { },
     onFailure: () => { },
+    width: 500,
+    height: 620,
   }
 
   constructor(props) {
@@ -17,10 +24,9 @@ class MyMiniFactoryLogin extends Component {
     this.onClick = this.onClick;
   }
 
-
   onSuccess = (data) => {
     if (!data.access_token) {
-      return this.onFailure(new Error('\'code\' not found'));
+      return this.onFailure(new Error('\'access token\' not found'));
     }
     this.props.onSuccess(data);
   }
@@ -30,8 +36,11 @@ class MyMiniFactoryLogin extends Component {
   }
 
   createPopup = (url, title, width, height) => {
+
+    // Calculting dimensions and positions
     const left = window.screenX + (window.outerWidth - width) / 2;
     const top = window.screenY + (window.outerHeight - height) / 2;
+
     this.externalWindow = window.open(
       url,
       title,
@@ -64,10 +73,10 @@ class MyMiniFactoryLogin extends Component {
   };
 
   onClick = () => {
-    const { clientId, redirectUri } = this.props;
+    const { clientKey, redirectUri, height, width } = this.props;
     const authServer = "https://auth.myminifactory.com/web/authorize?"
     const search = toQuery({
-      client_id: clientId,
+      client_id: clientKey,
       redirect_uri: redirectUri,
       response_type: "token",
       state: randomString(20) // random 
@@ -76,8 +85,8 @@ class MyMiniFactoryLogin extends Component {
     this.createPopup(
       authServer + search,
       "MyMiniFactory Login",
-      500, //width
-      620, //height
+      width, //width
+      height, //height
     )
   }
 
