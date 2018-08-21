@@ -8,6 +8,8 @@ class Popup {
         this.title = title;
     }
 
+    
+
     open() {
         const { url, height, width, title } = this;
 
@@ -27,7 +29,6 @@ class Popup {
             this._iid = window.setInterval(() => {
                 try {
                     const popup = this.window;
-                    console.log(popup.location.search)
                     if (!popup || popup.closed !== false) {
                         this.close();
 
@@ -41,10 +42,8 @@ class Popup {
                     }
 
                     const params = toParams(popup.location.search.replace(/^\?/, ''));
-                    console.log(params)
 
                     resolve(params);
-
                     this.close();
                 } catch (error) {
                     /*
