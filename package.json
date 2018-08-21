@@ -1,7 +1,7 @@
 {
   "name": "myminifactory-login",
   "description": "A React Component for Oauth Login on MyMiniFactory.com",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "dist/MyMiniFactoryLogin.js",
   "private": false,
   "dependencies": {
