@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-import Popup from './Popup';
-import { toQuery } from './utils';
+import { toQuery, toParams, randomString } from './utils';
 
 
 class MyMiniFactoryLogin extends Component {
@@ -20,7 +19,7 @@ class MyMiniFactoryLogin extends Component {
 
 
   onSuccess = (data) => {
-    if (!data.code) {
+    if (!data.access_token) {
       return this.onFailure(new Error('\'code\' not found'));
     }
     this.props.onSuccess(data);
@@ -32,7 +31,7 @@ class MyMiniFactoryLogin extends Component {
 
   createPopup = (url, title, width, height) => {
     const left = window.screenX + (window.outerWidth - width) / 2;
-    const top = window.screenY + (window.outerHeight - height) / 2.5;
+    const top = window.screenY + (window.outerHeight - height) / 2;
     this.externalWindow = window.open(
       url,
       title,
@@ -44,33 +43,24 @@ class MyMiniFactoryLogin extends Component {
         const popup = this.externalWindow;
 
         if (!popup || popup.closed !== false) {
-          console.error('The popup was closed');
           clearInterval(this.codeCheck);
           return;
         }
 
-        console.log(popup.location.href)
-
-        if (popup.location.href === this.url || popup.location.pathname === 'blank') {
+        if (popup.location.href === url || popup.location.pathname === 'blank') {
           return;
         }
 
-        // const params = toParams(popup.location.search.replace(/^\?/, ''));
+        popup.close();
+        this.onSuccess(toParams(popup.location.hash))
 
-        // resolve(params);
-
-        this.close();
       } catch (error) {
-        console.error(error)
+        // Ignore the DOMException: Blocked a frame with origin
+        // It's normal when the page is on auth.myminifactory.com (XSS countermeasure)
+
+        // console.error(error)
       }
     }, 500);
-      // const popup = this.externalWindow;
-      // console.log(new URL(this.externalWindow.location))
-      // if (this.externalWindow.closed){
-      //   clearInterval(this.codeCheck)
-      // }
-
-    // this.externalWindow.onbeforeunload = () => clearInterval(this.codeCheck)
   };
 
   onClick = () => {
@@ -80,15 +70,8 @@ class MyMiniFactoryLogin extends Component {
       client_id: clientId,
       redirect_uri: redirectUri,
       response_type: "token",
-      state: "abcthisisatest"
+      state: randomString(20) // random 
     });
-
-    // const popup = this.popup = Popup.open(
-    //   authServer + search,
-    //   620, //height
-    //   500, //width
-    //   "MyMiniFactory Login"
-    // );
 
     this.createPopup(
       authServer + search,

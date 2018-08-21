@@ -1,18 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import MyMiniFactoryLogin from './MyMiniFactoryLogin';
 
-
-const onSuccess = response => console.log(response);
-const onFailure = response => console.error(response);
-
-
-ReactDOM.render(
-    <MyMiniFactoryLogin
-        clientId="character-creator"
-        redirectUri="https://www.williamclot.com"
-        onSuccess={onSuccess}
-        onFailure={onFailure}
-    />,
-    document.getElementById('example')
-);
+export default MyMiniFactoryLogin;
