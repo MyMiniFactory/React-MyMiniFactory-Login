@@ -18,5 +18,11 @@
     "MyMiniFactory",
     "Oauth2",
     "login"
-  ]
+  ],
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/williamclot/React-MyMiniFactory-Login"
+  },
+  "author": "William CLOT <contact@williamclot.com> (https://www.williamclot.com/)",
+  "license" : "MIT"
 }
