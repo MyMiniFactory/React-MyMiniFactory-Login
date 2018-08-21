@@ -16,7 +16,7 @@
     "eject": "react-scripts eject"
   },
   "keywords": [
-    "react"
+    "react",
     "MyMiniFactory",
     "Oauth2",
     "login"
